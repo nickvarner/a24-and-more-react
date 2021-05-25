@@ -1,7 +1,10 @@
+import 'semantic-ui-css/semantic.min.css';
+import Navbar from './components/Navbar';
+
 function App () {
 	return (
 		<div className='App'>
-			<h1>react a24 and more</h1>
+			<Navbar />
 		</div>
 	);
 }
