@@ -1,33 +1,39 @@
-import http from '../http-common';
+import http from '../apis/http-common';
 
-class TutorialDataService {
-	getAll () {
-		return http.get('/movies');
-	}
+const getAll = () => {
+	return http.get('/movies');
+};
 
-	get (id) {
-		return http.get(`/movies/${id}`);
-	}
+const get = (id) => {
+	return http.get(`/movies/${id}`);
+};
 
-	create (data) {
-		return http.post('/movies', data);
-	}
+const create = (data) => {
+	return http.post('/movies', data);
+};
 
-	update (id, data) {
-		return http.put(`/movies/${id}`, data);
-	}
+const update = (id, data) => {
+	return http.put(`/movies/${id}`, data);
+};
 
-	delete (id) {
-		return http.delete(`/movies/${id}`);
-	}
+const remove = (id) => {
+	return http.delete(`/movies/${id}`);
+};
 
-	deleteAll () {
-		return http.delete(`/movies`);
-	}
+const removeAll = () => {
+	return http.delete(`/movies`);
+};
 
-	findByTitle (title) {
-		return http.get(`/movies?title=${title}`);
-	}
-}
+const findByTitle = (title) => {
+	return http.get(`/movies?title=${title}`);
+};
 
-export default new TutorialDataService();
+export default {
+	getAll,
+	get,
+	create,
+	update,
+	remove,
+	removeAll,
+	findByTitle
+};
