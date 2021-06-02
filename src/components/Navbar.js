@@ -4,6 +4,8 @@ import { Link, Switch, Route } from 'react-router-dom';
 import MovieList from './MovieList';
 import Movie from './Movie';
 import AddMovie from './AddMovie';
+import Login from './Login';
+import Register from './Register';
 
 class Navbar extends React.Component {
 	state = { activeItem: 'home' };
@@ -23,13 +25,19 @@ class Navbar extends React.Component {
 						<Menu.Item>
 							<Input icon='search' placeholder='Search Movies...' />
 						</Menu.Item>
+						{/* should display logout or login depending on if logged in */}
 						<Menu.Item name='logout' active={activeItem === 'logout'} onClick={this.handleItemClick} />
+						<Link to={'/login'}>
+							<Menu.Item name='login' active={activeItem === 'login'} onClick={this.handleItemClick} />
+						</Link>
 					</Menu.Menu>
 				</Menu>
 				<div className='container mt-3'>
 					<Switch>
 						<Route exact path={[ '/', '/movies' ]} component={MovieList} />
 						<Route exact path='/add' component={AddMovie} />
+						<Route exact path='/login' component={Login} />
+						<Route exact path='/register' component={Register} />
 						<Route path='/movies/:id' component={Movie} />
 					</Switch>
 				</div>
