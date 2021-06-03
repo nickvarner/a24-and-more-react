@@ -3,7 +3,7 @@ import { Form, Segment, Header, Grid, Message } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import AuthService from '../services/auth.service';
 
-const Login = () => {
+const Login = (props) => {
 	const [ email, setEmail ] = React.useState('');
 	const [ password, setPassword ] = React.useState('');
 	const [ loading, setLoading ] = React.useState(false);
@@ -21,6 +21,25 @@ const Login = () => {
 		e.preventDefault();
 		setLoading(true);
 		setMessage('');
+		if (email && password) {
+			AuthService.login(email, password).then(
+				() => {
+					props.history.push('/profile');
+					window.location.reload();
+				},
+				(error) => {
+					const resMessage =
+						(error.response && error.response.data && error.response.data.message) ||
+						error.message ||
+						error.toString();
+
+					setLoading(false);
+					setMessage(resMessage);
+				}
+			);
+		} else {
+			setLoading(false);
+		}
 	};
 	return (
 		<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -28,7 +47,7 @@ const Login = () => {
 				<Header as='h2' textAlign='center'>
 					login to an existing account
 				</Header>
-				<Form size='large'>
+				<Form size='large' onSubmit={handleSubmit}>
 					<Segment stacked>
 						<Form.Input
 							fluid

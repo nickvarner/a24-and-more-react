@@ -7,7 +7,7 @@ const Register = () => {
 	const [ username, setUsername ] = React.useState('');
 	const [ email, setEmail ] = React.useState('');
 	const [ password, setPassword ] = React.useState('');
-	const [ loading, setLoading ] = React.useState(false);
+	const [ successful, setSuccessful ] = React.useState(false);
 	const [ message, setMessage ] = React.useState('');
 
 	const handleUserChange = (e) => {
@@ -24,8 +24,22 @@ const Register = () => {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		setLoading(true);
-		setMessage('');
+		setSuccessful(false);
+		AuthService.register(username, email, password).then(
+			(response) => {
+				setMessage(response.data.message);
+				setSuccessful(true);
+			},
+			(error) => {
+				const resMessage =
+					(error.response && error.response.data && error.response.data.message) ||
+					error.message ||
+					error.toString();
+
+				setMessage(resMessage);
+				setSuccessful(false);
+			}
+		);
 	};
 	return (
 		<Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
@@ -33,7 +47,7 @@ const Register = () => {
 				<Header as='h2' textAlign='center'>
 					register a new account
 				</Header>
-				<Form size='large'>
+				<Form size='large' onSubmit={handleSubmit}>
 					<Segment stacked>
 						<Form.Input
 							fluid

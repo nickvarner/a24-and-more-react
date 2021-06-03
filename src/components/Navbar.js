@@ -6,6 +6,7 @@ import Movie from './Movie';
 import AddMovie from './AddMovie';
 import Login from './Login';
 import Register from './Register';
+import Profile from './Profile';
 
 class Navbar extends React.Component {
 	state = { activeItem: 'home' };
@@ -38,6 +39,7 @@ class Navbar extends React.Component {
 						<Route exact path='/add' component={AddMovie} />
 						<Route exact path='/login' component={Login} />
 						<Route exact path='/register' component={Register} />
+						<Route exact path='/profile' component={Profile} />
 						<Route path='/movies/:id' component={Movie} />
 					</Switch>
 				</div>
